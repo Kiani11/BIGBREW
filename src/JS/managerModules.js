@@ -62,11 +62,154 @@ function showModule(moduleId) {
 window.addEventListener("DOMContentLoaded", () => {
   showModule("overview");
 
-  document.querySelectorAll(".navItem").forEach((item) => {
+  const navItems = document.querySelectorAll(".navItem");
+
+  navItems.forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
       const module = item.dataset.module;
       showModule(module);
+
+      // Remove active class from all navItems
+      navItems.forEach((el) =>
+        el.classList.remove("bg-red-500", "text-blue-600")
+      );
+
+      // Add highlight to clicked one
+      item.classList.add("bg-red-500", "text-blue-600");
     });
   });
 });
+
+// Chart.js Data
+const salesCtx = document.getElementById("salesChart").getContext("2d");
+const productCtx = document.getElementById("productChart").getContext("2d");
+
+const salesData = {
+  day: {
+    labels: ["9AM", "11AM", "1PM", "3PM", "5PM"],
+    data: [300, 450, 350, 500, 620],
+  },
+  week: {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    data: [1200, 1500, 1000, 1800, 1600, 2100, 1700],
+  },
+  month: {
+    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+    data: [5200, 6100, 5800, 6900],
+  },
+};
+
+const productData = {
+  day: {
+    labels: ["Fruit tea", "Praf", "Hot Choco"],
+    data: [20, 15, 10],
+  },
+  week: {
+    labels: [
+      "Hot Brew",
+      "Milk Tea",
+      "Iced Coffee",
+      "fruit Tea",
+      "Praf",
+      "Promos",
+    ],
+    data: [120, 93, 75, 68, 55],
+  },
+  month: {
+    labels: [
+      "Milk Tea",
+      "fruit Tea",
+      "Hot Brew",
+      "Praf",
+      "Iced Coffee",
+      "Promos",
+    ],
+    data: [400, 350, 320, 280, 200, 180],
+  },
+};
+
+const salesChart = new Chart(salesCtx, {
+  type: "line",
+  data: {
+    labels: salesData.week.labels,
+    datasets: [
+      {
+        label: "₱ Sales",
+        data: salesData.week.data,
+        borderColor: "#3b82f6",
+        backgroundColor: "rgba(59, 130, 246, 0.1)",
+        tension: 0.4,
+        fill: true,
+        pointRadius: 4,
+        pointBackgroundColor: "#3b82f6",
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: (value) => "₱" + value,
+        },
+      },
+    },
+  },
+});
+
+const productChart = new Chart(productCtx, {
+  type: "bar",
+  data: {
+    labels: productData.week.labels,
+    datasets: [
+      {
+        label: "Units Sold",
+        data: productData.week.data,
+        backgroundColor: [
+          "#60a5fa",
+          "#34d399",
+          "#fbbf24",
+          "#f87171",
+          "#c084fc",
+          "#818cf8",
+        ],
+        borderRadius: 6,
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true } },
+  },
+});
+
+document.getElementById("salesFilter").addEventListener("change", function () {
+  const value = this.value;
+  salesChart.data.labels = salesData[value].labels;
+  salesChart.data.datasets[0].data = salesData[value].data;
+  salesChart.update();
+});
+
+document
+  .getElementById("productFilter")
+  .addEventListener("change", function () {
+    const value = this.value;
+    productChart.data.labels = productData[value].labels;
+    productChart.data.datasets[0].data = productData[value].data;
+    productChart.update();
+  });
+
+setInterval(() => {
+  const newSales = Math.floor(Math.random() * 1000 + 45000);
+  const newProfit = Math.floor(newSales * 0.18);
+  const newSold = Math.floor(Math.random() * 100 + 300);
+  document.getElementById("salesAmount").textContent =
+    "₱" + newSales.toLocaleString();
+  document.getElementById("profitAmount").textContent =
+    "₱" + newProfit.toLocaleString();
+  document.getElementById("itemsSold").textContent = newSold;
+}, 5000);

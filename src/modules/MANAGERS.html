@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>POS Manager Analytics</title>
     <link rel="shortcut icon" href="../assets/favcon/logo.ico" type="image/x-icon">
+    <!-- cdn for chartJs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!--  linked css below for animations purpose -->
     <link href="../css/input.css" rel="stylesheet" />
     <!--  linked css below for tailwind dependencies to work ofline -->
@@ -70,14 +72,15 @@
       =   Main Starts Here =
       ======================
     -->
-    <main class="flex min-h-screen">
+    <main class="flex min-h-screen ml-64 md:ml-64 p-6">
+
       <!-- 
       ========================
       =   NavBar Starts Here =
       ========================
     -->
       <aside
-        class="  w-64 bg-[var(--managers-nav-bg)] text-[var(--managers-nav-text)] shadow-lg overflow-y-auto h-screen"
+        class=" fixed top-0 left-0 w-64 h-screens bg-[var(--managers-nav-bg)] text-[var(--managers-nav-text)] shadow-lg overflow-y-auto h-screen z-20 hidden md:block"
       >
         <!-- 
       ==============================
@@ -116,7 +119,7 @@
           </div>
           <section class="space-y-1 px-3 group">
             <a
-              href="#"
+              href=""
               data-module="overview"
               class="navItem flex items-center px-3 py-2 text-sm rounded-lg transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
             >
@@ -136,7 +139,7 @@
               Overview
             </a>
             <a
-              href="#"
+              href="#overview"
               data-module="realTimeMetrics"
               class="navItem flex items-center px-3 py-2 text-sm rounded-lg  transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
             >
@@ -607,6 +610,7 @@
       ================================
       =   Overview module Stars Here =
       ================================
+      ================================ // diito ko na niillagay
     -->
         <section id="overview" class="bg-white rounded-lg shadow">
           <header
@@ -622,11 +626,134 @@
             </div>
           </header>
           <h3 class="text-xl font-semibold mb-2 text-gray-600 ">📊 Overview</h3>
-          <p>
-            // overview module nato for overview analytics reports ng mga total
-            transactions total profit total sold items etc. <br /><br />// free
-            suggestions if may maisip kapa
-          </p>
+        <div class="p-6 space-y-8 bg-[#f8fafc] min-h-screen">
+  <!-- Status Cards Section start this
+ ====================================================  
+ -->
+  <section
+    aria-label="Store Performance Summary"
+    class="grid portrait:grid-cols-1 sm:grid-cols-3 md:grid-cols-1 landscape:grid-cols-3 gap-6"
+  >
+    <article class="bg-white p-4 rounded-lg shadow flex items-center space-x-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-10 w-10 text-green-500"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.5a.75.75 0 00-1.5 0v.25H8a.75.75 0 000 1.5h1.25v2H8a.75.75 0 000 1.5h1.25v.25a.75.75 0 001.5 0V12.5H12a.75.75 0 000-1.5h-1.25v-2H12a.75.75 0 000-1.5h-1.25v-.25z"
+        />
+      </svg>
+      <div>
+        <p class="text-sm text-gray-500">Total Sales</p>
+        <h3 class="text-3xl font-bold text-gray-800 mt-1" id="salesAmount">
+          ₱45,600
+        </h3>
+      </div>
+    </article>
+
+    <article class="bg-white p-4 rounded-lg shadow flex items-center space-x-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-10 w-10 text-blue-500"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 3a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 001 1h1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1h1a1 1 0 001-1V3zM4 6v10h12V6H4z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <div>
+        <p class="text-sm text-gray-500">Total Profit</p>
+        <h3 class="text-3xl font-bold text-gray-800 mt-1" id="profitAmount">
+          ₱8,320
+        </h3>
+      </div>
+    </article>
+
+    <article class="bg-white p-4 rounded-lg shadow flex items-center space-x-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-10 w-10 text-yellow-500"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          d="M4 3a1 1 0 00-.894.553l-2.5 5A1 1 0 001 9h1v8a1 1 0 001 1h2a1 1 0 001-1v-2h8v2a1 1 0 001 1h2a1 1 0 001-1V9h1a1 1 0 00.894-1.447l-2.5-5A1 1 0 0016 3H4z"
+        />
+      </svg>
+      <div>
+        <p class="text-sm text-gray-500">Items Sold</p>
+        <h3 class="text-3xl font-bold text-gray-800 mt-1" id="itemsSold">
+          379
+        </h3>
+      </div>
+    </article>
+  </section>
+
+  <!-- Charts and Sidebar Section -->
+  <section class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
+    <!-- Charts Area -->
+    <section class="space-y-6" aria-label="Charts and Graphs">
+      <article class="bg-white rounded-xl shadow p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-700">📈 Sales Overview</h3>
+          <select
+            id="salesFilter"
+            class="border border-gray-300 rounded px-2 py-1 text-sm"
+          >
+            <option value="day">Today</option>
+            <option value="week" selected>This Week</option>
+            <option value="month">This Month</option>
+          </select>
+        </div>
+        <canvas id="salesChart" height="100"></canvas>
+      </article>
+
+      <article class="bg-white rounded-xl shadow p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-700">
+            🛍️ Top-Selling Products
+          </h3>
+          <select
+            id="productFilter"
+            class="border border-gray-300 rounded px-2 py-1 text-sm"
+          >
+            <option value="day">Today</option>
+            <option value="week" selected>This Week</option>
+            <option value="month">This Month</option>
+          </select>
+        </div>
+        <canvas id="productChart" height="100"></canvas>
+      </article>
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="space-y-6" aria-label="Stock and Alerts Sidebar">
+      <section class="bg-white rounded-xl shadow p-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">📦 Stock History</h3>
+        <ul class="text-sm text-gray-600 space-y-1">
+          <li>• 10pcs Matcha  added (July 23)</li>
+          <li>• 5pcs Dark Choco removed (July 22)</li>
+          <li>• 7pcs Taro added (July 20)</li>
+          <li>• Inventory audit completed (July 19)</li>
+        </ul>
+      </section>
+
+      <section class="bg-white rounded-xl shadow p-6">
+        <h3 class="text-lg font-semibold text-red-600 mb-4">⚠️ Stock Alerts</h3>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>• Low Stock: Iced Latte (only 4 left)</li>
+          <li>• Low Stock: Choco Frappe (only 3 left)</li>
+        </ul>
+      </section>
+    </aside>
+  </section>
+</div>
+
         </section>
         <!-- 
       ===============================
@@ -1219,18 +1346,46 @@
       ========================
     -->
 
-    <footer>
       <!-- 
       =======================================================================================================
       =                                As of now wala rin akong maisip pang footer                          =
       =                                if may suggestions ka G check naten                                  =
       =======================================================================================================
-    --></footer>
+    -->
+    
+    <footer class="bottom-0 md:left-64 w-full md:w-[calc(100%-16rem)] bg-white border-t px-4 py-2 text-xs shadow-sm text-gray-600">
+  <div class="flex flex-col sm:flex-row justify-between items-center gap-2">
+
+    <!-- Left -->
+    <div class="flex flex-wrap items-center gap-3">
+      <span class="flex items-center gap-1 font-medium">
+        <span class="text-base text-green-500">●</span> Online
+      </span>
+      <span class="hidden sm:inline">|</span>
+      <span class="flex items-center gap-1">
+        📅 <span id="footer-date" class="font-medium">Loading...</span>
+      </span>
+      <span class="hidden sm:inline">|</span>
+      <span class="flex items-center gap-1">
+        ⏰ <span id="footer-time" class="font-medium">Loading...</span>
+      </span>
+    </div>
+
+    <!-- Right -->
+    <div class="flex items-center gap-1 font-medium">
+      👤 Manager: Shane B.
+    </div>
+
+  </div>
+</footer>
+
+
 
     <!-- linked JS file below for theme toggle interaction -->
     <script src="../JS/theme-toggle.js"></script>
     <!-- linked JS file below for changing module content -->
     <script src="../JS/managerModules.js"></script>
+    <script src="../JS/footerManagers.js"></script>
 
     <!-- 
       ======================
