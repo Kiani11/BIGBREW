@@ -60,9 +60,19 @@ function showModule(moduleId) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  showModule("overview");
-
   const navItems = document.querySelectorAll(".navItem");
+
+  // Get ang last active module from localStorage then fallback to 'overview'
+  const activeModule = localStorage.getItem("activeModule") || "overview";
+  showModule(activeModule);
+
+  // Remove active class from all, then add to stored one
+  navItems.forEach((el) => {
+    el.classList.remove("bg-white", "text-black");
+    if (el.dataset.module === activeModule) {
+      el.classList.add("bg-white", "text-black");
+    }
+  });
 
   navItems.forEach((item) => {
     item.addEventListener("click", (e) => {
@@ -70,13 +80,12 @@ window.addEventListener("DOMContentLoaded", () => {
       const module = item.dataset.module;
       showModule(module);
 
-      // Remove active class from all navItems
-      navItems.forEach((el) =>
-        el.classList.remove("bg-red-500", "text-blue-600")
-      );
+      // Store to localStorage
+      localStorage.setItem("activeModule", module);
 
-      // Add highlight to clicked one
-      item.classList.add("bg-red-500", "text-blue-600");
+      // Update active class
+      navItems.forEach((el) => el.classList.remove("bg-white", "text-black"));
+      item.classList.add("bg-white", "text-black");
     });
   });
 });
