@@ -222,3 +222,48 @@ setInterval(() => {
     "₱" + newProfit.toLocaleString();
   document.getElementById("itemsSold").textContent = newSold;
 }, 5000);
+
+//close and open toggle of sidebar
+
+const openBtn = document.getElementById("openSideBar");
+const sidebar = document.getElementById("sideBar");
+const closeBtn = document.getElementById("closeSideBar");
+const footer = document.getElementById("footer");
+
+openBtn.addEventListener("click", () => {
+  sidebar.classList.remove("-translate-x-full");
+  sidebar.classList.add("translate-x-0");
+
+  openBtn.classList.add("hidden");
+  closeBtn.classList.remove("hidden");
+
+  // Add sidebar aligned layout to footer
+  footer.classList.add("md:left-64", "md:w-[calc(100%-16rem)]");
+});
+
+closeBtn.addEventListener("click", () => {
+  sidebar.classList.add("-translate-x-full");
+  sidebar.classList.remove("translate-x-0");
+
+  closeBtn.classList.add("hidden");
+  openBtn.classList.remove("hidden");
+
+  // close footer to full width
+  footer.classList.remove("md:left-64", "md:w-[calc(100%-16rem)]");
+});
+
+//header
+const userMenuButton = document.getElementById("userMenuButton");
+const userDropdown = document.getElementById("userDropdown");
+
+// Toggle dropdown
+userMenuButton.addEventListener("click", () => {
+  userDropdown.classList.toggle("hidden");
+});
+
+// Optional: Hide dropdown when clicking outside
+document.addEventListener("click", (e) => {
+  if (!userMenuButton.contains(e.target) && !userDropdown.contains(e.target)) {
+    userDropdown.classList.add("hidden");
+  }
+});
