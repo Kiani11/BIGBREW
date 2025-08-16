@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /*--------------------------------------------------------------
  |                      Animations - Starts Here               |
@@ -380,15 +378,7 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease,
     border-color 0.5s ease;
 }
-@layer utilities {
-  .hide-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-}
+
 /* THEME TOGGLE ANIMATION START */
 :root {
   --background-color: white;
@@ -405,6 +395,17 @@ body {
   --tool-tip-text-color: white;
   --managers-nav-bg: #111827;
   --managers-nav-text: white;
+  --chart-bg: rgba(255, 255, 255, 0.8);
+
+  /* Glassmorphism variables for light mode */
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  --glass-backdrop-filter: blur(8px);
+  --glass-card-bg: rgba(255, 255, 255, 0.25);
+  --glass-card-border: rgba(255, 255, 255, 0.18);
+  --chart-glass-bg: rgba(255, 255, 255, 0.4);
+  --chart-glass-border: rgba(255, 255, 255, 0.25);
 }
 [data-theme="dark"] {
   --background-color: #111827;
@@ -421,14 +422,66 @@ body {
   --tool-tip-text-color: black;
   --managers-nav-bg: white;
   --managers-nav-text: #111827;
+  --chart-bg: rgba(31, 41, 55, 0.8);
+
+  /* Glassmorphism variables for dark mode */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-backdrop-filter: blur(8px);
+  --glass-card-bg: rgba(255, 255, 255, 0.08);
+  --glass-card-border: rgba(255, 255, 255, 0.1);
+  --chart-glass-bg: rgba(255, 255, 255, 0.08);
+  --chart-glass-border: rgba(255, 255, 255, 0.15);
+}
+/* Glassmorphism chart card styles */
+.glass-card {
+  background: var(--glass-card-bg);
+  backdrop-filter: var(--glass-backdrop-filter);
+  -webkit-backdrop-filter: var(--glass-backdrop-filter);
+  border: 1px solid var(--glass-card-border);
+  box-shadow: var(--glass-shadow);
+  transition: all 0.3s ease;
 }
 
-.theme-toggle {
-  color: var(--text-color);
-  border: none;
-  top: 3%;
-  right: 2%;
-  transition: background-color 0.5s ease, color 0.5s ease;
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+}
+
+[data-theme="dark"] .glass-card:hover {
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Enhanced glassmorphism for chart areas specifically */
+.chart-glass {
+  background: var(--chart-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--chart-glass-border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.chart-glass:hover {
+  background: var(--glass-card-bg);
+  border-color: var(--glass-card-border);
+  transform: translateY(-1px);
+}
+
+/* Light glass effect for select elements */
+.glass-light {
+  background: var(--glass-card-bg);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid var(--glass-border);
+  .theme-toggle {
+    color: var(--text-color);
+    border: none;
+    top: 3%;
+    right: 2%;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
 }
 
 .sun-and-moon > :is(.moon, .sun, .sun-beams) {

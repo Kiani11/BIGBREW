@@ -59,6 +59,7 @@ function showModule(moduleId) {
   if (activeModule) activeModule.classList.remove("hidden");
 }
 
+// ACTIVE CLASS STARTS HERE
 window.addEventListener("DOMContentLoaded", () => {
   const navItems = document.querySelectorAll(".navItem");
 
@@ -68,12 +69,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Remove active class from all, then add to stored one
   navItems.forEach((el) => {
-    el.classList.remove("bg-white", "text-black");
+    el.classList.remove(
+      "bg-[var(--background-color)]",
+      "text-[var(--text-cololr)]"
+    );
     if (el.dataset.module === activeModule) {
-      el.classList.add("bg-white", "text-black");
+      el.classList.add(
+        "bg-[var(--background-color)]",
+        "text-[var(--text-color)]"
+      );
     }
   });
-
   navItems.forEach((item) => {
     item.addEventListener("click", (e) => {
       e.preventDefault();
@@ -84,11 +90,15 @@ window.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("activeModule", module);
 
       // Update active class
-      navItems.forEach((el) => el.classList.remove("bg-white", "text-black"));
-      item.classList.add("bg-white", "text-black");
+      navItems.forEach((el) =>
+        el.classList.remove("bg-[var(--background-cololr)]", "text-black")
+      );
+      item.classList.add("bg-[var(--background-cololr)]", "text-black");
     });
   });
 });
+
+// ACTIVE CLASS ENDS HERE
 
 // Chart.js Data
 const salesCtx = document.getElementById("salesChart").getContext("2d");
@@ -222,6 +232,77 @@ setInterval(() => {
     "₱" + newProfit.toLocaleString();
   document.getElementById("itemsSold").textContent = newSold;
 }, 5000);
+
+//PAYMENT METHOD
+window.addEventListener("DOMContentLoaded", () => {
+  const paymentMethodCtx = document
+    .getElementById("paymentMethodChart")
+    ?.getContext("2d");
+
+  if (!paymentMethodCtx) {
+    console.error("❌ paymentMethodChart canvas not found.");
+    return;
+  }
+
+  // Custom plugin to draw center total
+  const doughnutCenterText = {
+    id: "doughnutCenterText",
+    beforeDraw(chart) {
+      const { width, height, ctx } = chart;
+      const total = chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+
+      ctx.save();
+      ctx.font = "bold 16px sans-serif";
+      ctx.fillStyle = "#111";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      ctx.fillText("Total", width / 2, height / 2 - 10);
+      ctx.fillText(`₱${total.toLocaleString()}`, width / 2, height / 2 + 12);
+      ctx.restore();
+    },
+  };
+
+  const paymentMethodChart = new Chart(paymentMethodCtx, {
+    type: "doughnut",
+    data: {
+      labels: ["Cash", "E-payment"],
+      datasets: [
+        {
+          label: "Payment Methods",
+          data: [0, 0],
+          backgroundColor: ["#10B981", "#3B82F6"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "bottom",
+        },
+      },
+      animation: {
+        duration: 3000,
+        easing: "linear",
+      },
+    },
+    plugins: [doughnutCenterText], // ⬅️ Register the plugin
+  });
+
+  // Dummy data update function
+  function updatePaymentMethods() {
+    const cash = Math.floor(Math.random() * 1000);
+    const ePayment = Math.floor(Math.random() * 1000);
+    paymentMethodChart.data.datasets[0].data = [cash, ePayment];
+    paymentMethodChart.update();
+  }
+
+  // Initial call + auto update
+  updatePaymentMethods();
+  setInterval(updatePaymentMethods, 5000);
+});
 
 //close and open toggle of sidebar
 
