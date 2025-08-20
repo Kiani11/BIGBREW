@@ -59,7 +59,9 @@ function showModule(moduleId) {
   if (activeModule) activeModule.classList.remove("hidden");
 }
 
-// ACTIVE CLASS STARTS HERE
+// ===================================================
+//        ACTIVE CLASS SIDEBAR STARTS HERE
+//===================================================
 window.addEventListener("DOMContentLoaded", () => {
   const navItems = document.querySelectorAll(".navItem");
 
@@ -71,7 +73,7 @@ window.addEventListener("DOMContentLoaded", () => {
   navItems.forEach((el) => {
     el.classList.remove(
       "bg-[var(--background-color)]",
-      "text-[var(--text-cololr)]"
+      "text-[var(--text-color)]"
     );
     if (el.dataset.module === activeModule) {
       el.classList.add(
@@ -91,18 +93,26 @@ window.addEventListener("DOMContentLoaded", () => {
 
       // Update active class
       navItems.forEach((el) =>
-        el.classList.remove("bg-[var(--background-cololr)]", "text-black")
+        el.classList.remove(
+          "bg-[var(--background-color)]",
+          "text-[var(--text-color)]"
+        )
       );
-      item.classList.add("bg-[var(--background-cololr)]", "text-black");
+      item.classList.add(
+        "bg-[var(--background-color)]",
+        "text-[var(--text-color)]"
+      );
     });
   });
 });
+// ===================================================
+//        ACTIVE CLASS SIDEBAR ENDS HERE
+//===================================================
 
-// ACTIVE CLASS ENDS HERE
-
-// Chart.js Data
+// ========================================================
+// SALES OVERVIEW CHART STARTS HERE
+// ========================================================
 const salesCtx = document.getElementById("salesChart").getContext("2d");
-const productCtx = document.getElementById("productChart").getContext("2d");
 
 const salesData = {
   day: {
@@ -116,35 +126,6 @@ const salesData = {
   month: {
     labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
     data: [5200, 6100, 5800, 6900],
-  },
-};
-
-const productData = {
-  day: {
-    labels: ["Fruit tea", "Praf", "Hot Choco"],
-    data: [20, 15, 10],
-  },
-  week: {
-    labels: [
-      "Hot Brew",
-      "Milk Tea",
-      "Iced Coffee",
-      "fruit Tea",
-      "Praf",
-      "Promos",
-    ],
-    data: [120, 93, 75, 68, 55],
-  },
-  month: {
-    labels: [
-      "Milk Tea",
-      "fruit Tea",
-      "Hot Brew",
-      "Praf",
-      "Iced Coffee",
-      "Promos",
-    ],
-    data: [400, 350, 320, 280, 200, 180],
   },
 };
 
@@ -179,6 +160,50 @@ const salesChart = new Chart(salesCtx, {
   },
 });
 
+document.getElementById("salesFilter").addEventListener("change", function () {
+  const value = this.value;
+  salesChart.data.labels = salesData[value].labels;
+  salesChart.data.datasets[0].data = salesData[value].data;
+  salesChart.update();
+});
+// ========================================================
+// SALES OVERVIEW CHART ENDS HERE
+// ========================================================
+
+// ========================================================
+// TOP SELLING PRODUCTS CHART STARTS HERE
+// ========================================================
+const productCtx = document.getElementById("productChart").getContext("2d");
+
+const productData = {
+  day: {
+    labels: ["Fruit tea", "Praf", "Hot Choco"],
+    data: [20, 15, 10],
+  },
+  week: {
+    labels: [
+      "Hot Brew",
+      "Milk Tea",
+      "Iced Coffee",
+      "fruit Tea",
+      "Praf",
+      "Promos",
+    ],
+    data: [120, 93, 75, 68, 55],
+  },
+  month: {
+    labels: [
+      "Milk Tea",
+      "fruit Tea",
+      "Hot Brew",
+      "Praf",
+      "Iced Coffee",
+      "Promos",
+    ],
+    data: [400, 350, 320, 280, 200, 180],
+  },
+};
+
 const productChart = new Chart(productCtx, {
   type: "bar",
   data: {
@@ -206,13 +231,6 @@ const productChart = new Chart(productCtx, {
   },
 });
 
-document.getElementById("salesFilter").addEventListener("change", function () {
-  const value = this.value;
-  salesChart.data.labels = salesData[value].labels;
-  salesChart.data.datasets[0].data = salesData[value].data;
-  salesChart.update();
-});
-
 document
   .getElementById("productFilter")
   .addEventListener("change", function () {
@@ -221,19 +239,32 @@ document
     productChart.data.datasets[0].data = productData[value].data;
     productChart.update();
   });
+// ========================================================
+// TOP SELLING PRODUCTS CHART ENDS HERE
+// ========================================================
 
+// ========================================================
+// DASHBOARD REALTIME DATA DUMMY UPDATES (AUTO-REFRESH)
+// ========================================================
 setInterval(() => {
   const newSales = Math.floor(Math.random() * 1000 + 45000);
   const newProfit = Math.floor(newSales * 0.18);
   const newSold = Math.floor(Math.random() * 100 + 300);
+
   document.getElementById("salesAmount").textContent =
     "₱" + newSales.toLocaleString();
   document.getElementById("profitAmount").textContent =
     "₱" + newProfit.toLocaleString();
   document.getElementById("itemsSold").textContent = newSold;
 }, 5000);
+// ========================================================
+// DASHBOARD REALTIME DATA DUMMY UPDATES END
+// ========================================================
 
-//PAYMENT METHOD
+// ========================================================
+// PAYMENT METHOD STARTS HERE
+// ========================================================
+
 window.addEventListener("DOMContentLoaded", () => {
   const paymentMethodCtx = document
     .getElementById("paymentMethodChart")
@@ -291,60 +322,16 @@ window.addEventListener("DOMContentLoaded", () => {
     plugins: [doughnutCenterText], // ⬅️ Register the plugin
   });
 
-  // Dummy data update function
+  // Dummy data update function STARTS HERE
   function updatePaymentMethods() {
     const cash = Math.floor(Math.random() * 1000);
     const ePayment = Math.floor(Math.random() * 1000);
     paymentMethodChart.data.datasets[0].data = [cash, ePayment];
     paymentMethodChart.update();
   }
+  // Dummy data update function ENDS HERE
 
   // Initial call + auto update
   updatePaymentMethods();
   setInterval(updatePaymentMethods, 5000);
-});
-
-//close and open toggle of sidebar
-
-const openBtn = document.getElementById("openSideBar");
-const sidebar = document.getElementById("sideBar");
-const closeBtn = document.getElementById("closeSideBar");
-const footer = document.getElementById("footer");
-
-openBtn.addEventListener("click", () => {
-  sidebar.classList.remove("-translate-x-full");
-  sidebar.classList.add("translate-x-0");
-
-  openBtn.classList.add("hidden");
-  closeBtn.classList.remove("hidden");
-
-  // Add sidebar aligned layout to footer
-  footer.classList.add("md:left-64", "md:w-[calc(100%-16rem)]");
-});
-
-closeBtn.addEventListener("click", () => {
-  sidebar.classList.add("-translate-x-full");
-  sidebar.classList.remove("translate-x-0");
-
-  closeBtn.classList.add("hidden");
-  openBtn.classList.remove("hidden");
-
-  // close footer to full width
-  footer.classList.remove("md:left-64", "md:w-[calc(100%-16rem)]");
-});
-
-//header
-const userMenuButton = document.getElementById("userMenuButton");
-const userDropdown = document.getElementById("userDropdown");
-
-// Toggle dropdown
-userMenuButton.addEventListener("click", () => {
-  userDropdown.classList.toggle("hidden");
-});
-
-// Optional: Hide dropdown when clicking outside
-document.addEventListener("click", (e) => {
-  if (!userMenuButton.contains(e.target) && !userDropdown.contains(e.target)) {
-    userDropdown.classList.add("hidden");
-  }
 });

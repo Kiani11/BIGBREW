@@ -21,73 +21,97 @@
   </head>
   <body class="font-sans bg-[var(--background-color)] text-[var(--text-color)]">
     <header
-      class="flex justify-end items-center gap-4 px-4 py-2 bg-[var(--background-color)] border-b shadow-md"
+      class="flex justify-between items-center gap-4 px-3 py-2 lg:px-6 lg:py-3 md:static sm:px-4 sm:py-2 bg-gradient-to-r from-[color:var(--bigbrew-brown-dark)]/70 to-[color:var(--bigbrew-brown-light)]/30 border-b shadow-md z-50"
     >
-      <span class="text-xl font-semibold text-[var(---text-color)]"
-        >POS Dashboard</span
+      <button
+        id="mobileMenuToggle"
+        class="/* Show on mobile/tablet, hide on desktop */ block md:hidden p-2 rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors duration-200 text-[var(--text-color)]"
+        aria-label="Toggle navigation menu"
       >
+        <!-- Hamburger icon -->
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+      <h1
+        class="text-2xl flex-1 md:text-left md:flex-none sm:text-lg md:text-xl font-semibold text-[var(---text-color)]"
+      >
+        POS Dashboard
+      </h1>
 
       <!-- 
       ==================================
       =   Theme toggle Btn Starts Here =
       ==================================
     -->
-      <button
-        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-        id="theme-toggle"
-        title="Toggle theme"
-        aria-label="auto"
-        aria-live="polite"
-      >
-        <svg
-          class="sun-and-moon text-gray-600 dark:text-gray-200"
-          aria-hidden="true"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
+      <div class="flex items-center gap-2 sm:gap-3 lg:gap-4">
+        <button
+          class="p-2 sm:p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition duration-200"
+          id="theme-toggle"
+          title="Toggle theme"
+          aria-label="auto"
+          aria-live="polite"
         >
-          <mask class="moon" id="moon-mask">
-            <rect x="0" y="0" width="100%" height="100%" fill="white" />
-            <circle cx="24" cy="10" r="6" fill="black" />
-          </mask>
-          <circle
-            class="sun"
-            cx="12"
-            cy="12"
-            r="6"
-            mask="url(#moon-mask)"
-            fill="currentColor"
-          />
-          <g class="sun-beams" stroke="currentColor">
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </g>
-        </svg>
-      </button>
+          <svg
+            class="sun-and-moon text-gray-600 dark:text-gray-200"
+            aria-hidden="true"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <mask class="moon" id="moon-mask">
+              <rect x="0" y="0" width="100%" height="100%" fill="white" />
+              <circle cx="24" cy="10" r="6" fill="black" />
+            </mask>
+            <circle
+              class="sun"
+              cx="12"
+              cy="12"
+              r="6"
+              mask="url(#moon-mask)"
+              fill="currentColor"
+            />
+            <g class="sun-beams" stroke="currentColor">
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </g>
+          </svg>
+        </button>
 
-      <!-- 
+        <!-- 
       ================================
       =   Theme toggle Btn Ends Here =
       ================================
     -->
 
-      <!-- 
+        <!-- 
     =======================
     Profile Dropdown
     ======================= -->
-      <select
-        id="userMenu"
-        class="appearance-none bg-transparent border-none outline-none text-sm font-medium cursor-pointer"
-      >
-        <option selected disabled>Arwyn T.</option>
-        <option value="logout">Logout</option>
-      </select>
+        <select
+          id="userMenu"
+          class="appearance-none bg-transparent border-none outline-none text-xs font-medium cursor-pointer sm:text-sm lg:text-base max-w-20 sm:max-w-none truncate sm:text-clip"
+        >
+          <option selected disabled>Arwyn T.</option>
+          <option value="logout">Logout</option>
+        </select>
+      </div>
     </header>
 
     <!-- 
@@ -102,13 +126,44 @@
     -->
 
     <aside
-      class="fixed top-0 left-0 w-64 bg-[var(--managers-nav-bg)] text-[var(--managers-nav-text)] transform -translate-x-full md:translate-x-0 duration-200 ease-in-out shadow-lg overflow-y-auto h-screen z-40"
+      class="fixed top-0 left-0 h-screen w-80 sm:w-72 md:w-64 bg-[var(--managers-nav-bg)] text-[var(--managers-nav-text)] transform -translate-x-full md:translate-x-0 duration-200 ease-out shadow-2xl overflow-y-auto z-40"
       id="sideBar"
     >
-      <header class="p-6 shadow-[var(--managers-nav-text)]">
-        <h1 class="text-xl font-bold">Manager Analytics</h1>
-        <p class="text-sm mt-1">Dashboard & Reports</p>
+      <header class="section-header p-6 shadow-lg relative overflow-hidden">
+        <!-- content wrapper -->
+        <div class="relative z-10 flex items-center justify-between mb-2">
+          <div>
+            <h1 class="text-xl font-bold">Manager Analytics</h1>
+            <p class="text-sm opacity-90">Dashboard & Reports</p>
+          </div>
+        </div>
+
+        <!-- right side (close button mobile only) -->
+        <button
+          id="closeMobileMenu"
+          class="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        <!-- gradient background overlay -->
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-[#895129]/20 to-[#895129]/60"
+        ></div>
       </header>
+
       <!-- 
       ==============================
       =   Navbar Header Start Here =
@@ -122,16 +177,17 @@
       =                                                                                                     =
       =======================================================================================================
     -->
-      <nav class="mt-6">
+      <nav class="mt-6 px-3 mb-3">
         <!-- 
       ==============================
       =     Overview Start Here    =
       ==============================
     -->
-        <div class="px-6 py-2">
+        <div class="px-4 py-3 mt-6">
           <h3
-            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            class="text-xs font-semibold text-[var(--managers-nav-text)] uppercase tracking-wider flex items-center"
           >
+            <div class="w-4 h-0.5 bg-slate-400 mr-2"></div>
             Dashboard
           </h3>
         </div>
@@ -139,10 +195,10 @@
           <a
             href=""
             data-module="overview"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
             <svg
-              class="w-5 h-5 mr-3"
+              class="w-5 h-5 mr-3 text-blue-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -159,10 +215,10 @@
           <a
             href="#overview"
             data-module="realTimeMetrics"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem flex items-center font-medium px-3 py-2 text-sm rounded-lg transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
             <svg
-              class="w-5 h-5 mr-3"
+              class="w-5 h-5 mr-3 text-green-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -187,72 +243,83 @@
       =     Sales Management Start Here    =
       ======================================
     -->
-        <div class="px-6 py-2 mt-6">
+        <div class="px-4 py-3 mt-6">
           <h3
-            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            class="text-xs font-semibold text-[var(managers-nav-text)] uppercase tracking-wider"
           >
             Sales Management
           </h3>
         </div>
-        <section class="space-y-1 px-3 group">
+        <section class="space-y-1 group">
           <a
             data-module="salesReports"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-purple-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
             Sales Reports
           </a>
           <a
             data-module="performanceTrend"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-orange-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                ></path>
+              </svg>
+            </div>
             Performance Trends
           </a>
           <a
             data-module="refund"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
-          >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            ><div
+              class="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-red-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                ></path>
+              </svg>
+            </div>
             Refund
           </a>
         </section>
@@ -270,50 +337,57 @@
         <!-- Staff Management -->
         <div class="px-6 py-2 mt-6">
           <h3
-            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            class="text-xs font-semibold text-[var(--managers-nav-text)] uppercase tracking-wider"
           >
             Staff Management
           </h3>
         </div>
-        <section class="space-y-1 px-3 group">
+        <section class="space-y-1 group">
           <a
             data-module="registerStaff"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem flex font-medium items-center px-4 py-3 text-sm rounded-lg transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a3 3 0 11-6 0 3 3 0 016 0zM3 20a6 6 0 0112 0v1H3v-1z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-cyan-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a3 3 0 11-6 0 3 3 0 016 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                ></path>
+              </svg>
+            </div>
             Register Staff
           </a>
           <a
             data-module="modifyPosition"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
-          >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            class="navItem flex font-medium items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            ><div
+              class="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-indigo-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-indigo-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
             Modify Position
           </a>
         </section>
@@ -329,90 +403,104 @@
     -->
         <div class="px-6 py-2 mt-6">
           <h3
-            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            class="text-xs font-semibold text-[var(--managers-nav-text)] uppercase tracking-wider"
           >
             Inventory Management
           </h3>
         </div>
-        <section class="space-y-1 px-3 group">
+        <section class="space-y-1 group">
           <a
             data-module="stockEntry"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
-          >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            ><div
+              class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-emerald-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4m4-11v6m0 0v3m0-3h3m-3 0h-3"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-emerald-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4m4-11v6m0 0v3m0-3h3m-3 0h-3"
+                ></path>
+              </svg>
+            </div>
             Stock Entry
           </a>
           <a
             data-module="stockLevel"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-teal-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-teal-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-teal-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                ></path>
+              </svg>
+            </div>
             Stock Levels
           </a>
           <a
             data-module="lowStockAlerts"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem flex font-medium items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-yellow-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-yellow-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                ></path>
+              </svg>
+            </div>
             Low Stock Alerts
           </a>
           <a
             data-module="stocksMovementHistory"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
-          >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            class="navItem flex font-medium items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            ><div
+              class="w-10 h-10 bg-pink-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-pink-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6v14h16M8 16v-4m4 4V8m4 8v-2"
-              />
-            </svg>
+              <svg
+                class="w-5 h-5 text-pink-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6v14h16M8 16v-4m4 4V8m4 8v-2"
+                />
+              </svg>
+            </div>
 
             Movement History
           </a>
@@ -429,70 +517,81 @@
     -->
         <div class="px-6 py-2 mt-6">
           <h3
-            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            class="text-xs font-semibold text-[var(--managers-nav-text)] uppercase tracking-wider"
           >
             Product Management
           </h3>
         </div>
-        <section class="space-y-1 px-3 group">
+        <section class="space-y-1 group">
           <a
             data-module="logWaste"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
-          >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            ><div
+              class="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-red-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                ></path>
+              </svg>
+            </div>
             Log Waste
           </a>
           <a
             data-module="disableItem"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-gray-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-gray-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M18.364 5.636l-12.728 12.728m0-12.728l12.728 12.728M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18.364 5.636l-12.728 12.728m0-12.728l12.728 12.728M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
             Disable Item
           </a>
           <a
             data-module="productMovementHistory"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6v14h16M8 16v-4m4 4V8m4 8v-2"
-              />
-            </svg>
+              <svg
+                class="w-5 h-5 text-blue-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6v14h16M8 16v-4m4 4V8m4 8v-2"
+                />
+              </svg>
+            </div>
 
             Movement History
           </a>
@@ -510,70 +609,81 @@
     -->
         <div class="px-6 py-2 mt-6">
           <h3
-            class="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+            class="text-xs font-semibold text-[var(--managers-nav-text)] uppercase tracking-wider"
           >
             Customer Management
           </h3>
         </div>
-        <section class="space-y-1 px-3 group">
+        <section class="space-y-1 group">
           <a
             data-module="satisfactionDashboard"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-green-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-green-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                ></path>
+              </svg>
+            </div>
             Satisfaction Dashboard
           </a>
           <a
             data-module="complaintsManagement"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
-          >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            ><div
+              class="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-amber-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-amber-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                ></path>
+              </svg>
+            </div>
             Complaint Management
           </a>
           <a
             data-module="rewards&LoyaltyProgram"
             href="#"
-            class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
+            class="navItem font-medium flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-opacity duration-200 group-hover:opacity-20 hover:!opacity-100"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-violet-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-violet-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-violet-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                ></path>
+              </svg>
+            </div>
             Rewards & Loyalty Program
           </a>
           <a
@@ -581,19 +691,23 @@
             href="#"
             class="navItem flex items-center px-3 py-2 text-sm rounded-lg cursor-pointer transition-colors duration-200 group-hover:opacity-10 hover:!opacity-150 hover:bg-yellow-800 hover:text-white"
           >
-            <svg
-              class="w-5 h-5 mr-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              class="w-10 h-10 bg-rose-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-rose-500/30 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
-              ></path>
-            </svg>
+              <svg
+                class="w-5 h-5 text-rose-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                ></path>
+              </svg>
+            </div>
             Discount Dashboard
           </a>
         </section>
@@ -624,14 +738,14 @@
       ======================
     -->
     <main
-      class="flex min-h-screen ml-64 md:ml-64 p-6 bg-[var(--background-color)]"
+      class="min-h-screen md:pt-6 md:pb-16 md:px-6 md:ml-64 pt-4 pb-20 px-4 bg-[var(--background-color)] transition-all duration-200 ease-out"
     >
       <!-- 
       ==============================
       =   Main Content Starts Here =
       ==============================
     -->
-      <section class="flex-1 flex flex-col bg-[var(--background-color)]">
+      <section class="max-w-7xl mx-auto bg-[var(--background-color)]">
         <!-- 
       ================================
       =   Overview module Stars Here =
@@ -758,7 +872,7 @@
         -->
 
             <section
-              class="bg-[var(--background-color)] grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6"
+              class="bg-[var(--background-color)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr] gap-4 mb-8"
             >
               <!--
               ===============================
@@ -779,7 +893,7 @@
                     </h3>
                     <select
                       id="salesFilter"
-                      class="glass-light border border-gray-300 rounded px-2 py-1 text-sm"
+                      class="glass-light border border-black rounded px-2 py-1 text-sm"
                     >
                       <option value="day">Today</option>
                       <option value="week" selected>This Week</option>
@@ -839,6 +953,7 @@
                   <h3 class="text-lg font-semibold text-gray-700 mb-4">
                     📦 Stock History
                   </h3>
+
                   <ul class="text-sm text-gray-600 space-y-1">
                     <li>• 10pcs Matcha added (July 23)</li>
                     <li>• 5pcs Dark Choco removed (July 22)</li>
@@ -853,14 +968,61 @@
                stock alerts 
                ===============================-->
               <section
-                class="glass-card bg-[var(--chart-bg)] rounded-xl shadow p-6"
+                class="glass-card bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-white/20 shadow-xl"
+                aria-labelledby="stock-alerts-title"
               >
-                <h3 class="text-lg font-semibold text-red-600 mb-4">
-                  ⚠️ Stock Alerts
-                </h3>
-                <ul class="text-sm text-gray-700 space-y-1">
-                  <li>• Low Stock: Iced Latte (only 4 left)</li>
-                  <li>• Low Stock: Choco Frappe (only 3 left)</li>
+                <header>
+                  <h4
+                    id="stock-alerts-title"
+                    class="flex items-center gap-2 font-semibold text-[var(--text-color)] mb-4"
+                  >
+                    <!-- Warning / Alert Icon -->
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-7 h-7 text-red-500"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-7-4a1 1 0 
+               10-2 0v4a1 1 0 102 0V6zm0 8a1 1 0 
+               11-2 0 1 1 0 012 0z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+
+                    Stock Alerts
+                  </h4>
+                </header>
+
+                <ul class="space-y-3">
+                  <li
+                    class="flex items-center space-x-2 bg-white/60 backdrop-blur-sm p-3 rounded-lg border border-white/20 shadow-sm"
+                  >
+                    <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                    <span class="text-sm text-slate-600"
+                      >Iced Latte (4 left)</span
+                    >
+                  </li>
+
+                  <li
+                    class="flex items-center space-x-2 bg-white/60 backdrop-blur-sm p-3 rounded-lg border border-white/20 shadow-sm"
+                  >
+                    <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
+                    <span class="text-sm text-slate-600"
+                      >Choco Frappe (8 left)</span
+                    >
+                  </li>
+
+                  <li
+                    class="flex items-center space-x-2 bg-white/60 backdrop-blur-sm p-3 rounded-lg border border-white/20 shadow-sm"
+                  >
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    <span class="text-sm text-slate-600"
+                      >All others in stock</span
+                    >
+                  </li>
                 </ul>
               </section>
             </section>
@@ -1456,22 +1618,16 @@
     -->
 
     <!-- 
-      ========================
-      = JS Links Starts Here =
-      ========================
-    -->
-
-    <!-- 
       =======================================================================================================
-      =                                As of now wala rin akong maisip pang footer                          =
-      =                                if may suggestions ka G check naten                                  =
+      =                                                         =
+      =                                FOOTER STARTS HERE                                  =
       =======================================================================================================
     -->
 
     <footer
-      class="fixed bottom-0 md:left-64 w-full md:w-[calc(100%-16rem)] bg-[var(--background-color)] border-t shadow-sm px-4 py-2 text-xs text-gray-600 z-50"
+      class="fixed bottom-0 left-0 right-0 md:left-64 bg-[var(--background-color)] border-t shadow-sm px-3 py-2 sm:px-4 sm:py-2.5 text-xs z-50"
     >
-      <div class="relative flex items-center justify-between w-full">
+      <div class="flex items-center gap-1">
         <!-- Centered Info -->
         <div
           class="absolute left-1/2 -translate-x-1/2 flex flex-wrap justify-center items-center gap-3 text-[11px]"
@@ -1513,6 +1669,18 @@
       </div>
     </footer>
 
+    <!-- 
+      =======================================================================================================
+      =                                                         =
+      =                                FOOTER ENDS HERE                                  =
+      =======================================================================================================
+    -->
+
+    <!-- 
+      ========================
+      = JS Links Starts Here =
+      ========================
+    -->
     <!-- linked JS file below for theme toggle interaction -->
     <script src="../JS/theme-toggle.js"></script>
     <!-- linked JS file below for changing module content -->
