@@ -379,6 +379,23 @@ body {
     border-color 0.5s ease;
 }
 
+/*====================
+ light and dark mode for svg bb icon  starts here
+ ============================*/
+
+.theme-logo {
+  transition: filter 0.3s ease;
+}
+:root .theme-logo {
+  filter: invert(0); /* normal (dark logo sa light bg) */
+}
+[data-theme="dark"] .theme-logo {
+  filter: invert(1); /* inverted (light logo sa dark bg) */
+}
+
+/*====================
+ light and dark mode for svg bb icon  ends here
+ ============================*/
 /* THEME TOGGLE ANIMATION START */
 :root {
   --background-color: white;
@@ -398,12 +415,12 @@ body {
   --chart-bg: rgba(255, 255, 255, 0.8);
 
   /* Glassmorphism variables for light mode */
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-border: rgba(0, 0, 0.4);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  --glass-backdrop-filter: blur(8px);
-  --glass-card-bg: rgba(255, 255, 255, 0.25);
-  --glass-card-border: rgba(255, 255, 255, 0.18);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  --glass-backdrop-filter: blur(20px);
+  --glass-card-bg: rgba(255, 255, 255, 0.15);
+  --glass-card-border: rgba(255, 255, 255, 0.25);
   --chart-glass-bg: rgba(255, 255, 255, 0.4);
   --chart-glass-border: rgba(255, 255, 255, 0.25);
 }
@@ -425,7 +442,7 @@ body {
   --chart-bg: rgba(31, 41, 55, 0.8);
 
   /* Glassmorphism variables for dark mode */
-  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.2);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   --glass-backdrop-filter: blur(8px);
@@ -563,3 +580,67 @@ body {
   }
 }
 /* THEME TOGGLE ANIMATION END */
+
+/* animation for register staff */
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.animate-shine {
+  animation: shine 1s ease-out;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animation-fill-both {
+  animation-fill-mode: both;
+}
+
+/* Custom font family */
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
