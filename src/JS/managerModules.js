@@ -1069,136 +1069,94 @@ const srPromosChart = new Chart(srPromosCtx, {
 //  REGISTER STAFF Starts HERE
 // ========================================================
 
-const form = document.getElementById("staffRegistrationForm");
 const staffNameInput = document.getElementById("staffName");
-const roleInput = document.getElementById("role");
 const staffNameFeedback = document.getElementById("staffNameFeedback");
-const roleFeedback = document.getElementById("roleFeedback");
 const spinner = document.getElementById("loadingSpinner");
-const btnText = document.getElementById("submitBtn");
+const form = document.getElementById("staffRegistrationForm");
+const submitBtn = document.getElementById("submitBtn");
 
 // =====================
-// Feedback ito ng p tags na
-// sinet ko ssa baba ng input starts here
-//==================================
-const setFeedback = (input, feedback, message, isValid) => {
-  feedback.textContent = message;
-  feedback.className = isValid
-    ? "text-green-600 text-sm mt-1"
-    : "text-red-500 text-sm mt-1";
-
-  input.classList.remove(
-    "border-gray-200",
-    "border-red-500",
-    "border-green-500"
-  );
-  input.classList.add(isValid ? "border-green-500" : "border-red-500");
-};
-
+// Staff Name Validation
 // =====================
-// Feedback ito ng p tags na
-// sinet ko ssa baba ng input ends here
-//==================================
-
-// =========
-// Staff Name validation starts here
-//================
 const validateStaffName = () => {
   const name = staffNameInput.value.trim();
-  const nameRegex = /^[A-Za-z ]+$/;
   if (!name) {
-    setFeedback(staffNameInput, staffNameFeedback, "Name is required.", false);
+    staffNameFeedback.textContent = "Name is required.";
+    staffNameFeedback.className = "text-red-500 text-sm mt-1";
     return false;
   } else if (name.length < 4) {
-    setFeedback(
-      staffNameInput,
-      staffNameFeedback,
-      "Name must be at least 4 characters.",
-      false
-    );
+    staffNameFeedback.textContent = "Name must be at least 4 characters.";
+    staffNameFeedback.className = "text-red-500 text-sm mt-1";
     return false;
   } else {
-    setFeedback(staffNameInput, staffNameFeedback, "Good!", true);
+    staffNameFeedback.textContent = "Good!";
+    staffNameFeedback.className = "text-green-600 text-sm mt-1";
     return true;
   }
 };
 
-// =========
-// Staff Name validation ENDS here
-//================
-
-// =========
-// avoid typing of special characters and
-// multiple of spacing starts here
-//================
+// =================
+// Limit input letters then single space only
+//==========================
 staffNameInput.addEventListener("input", () => {
   let value = staffNameInput.value;
-  // Keep only letters and 1 space only
-  staffNameInput.value = staffNameInput.value.replace(/[^A-Za-z ]/g, ""); //avoid neto special characters, only letters lang
-  value = value.replace(/\s{2,}/g, " "); //pinapalitan nya yung multiple spaces into single space
-  value = value.replace(/^\s+/g, ""); // to naman cleanup so tiinatanggall nya yung multiple na pinalitan into single space
+  value = value.replace(/[^A-Za-z ]/g, ""); // letters and space only
+  value = value.replace(/\s{2,}/g, " "); // multiple  single space
+  value = value.replace(/^\s+/g, ""); // remove leading spaces
   staffNameInput.value = value;
 
   validateStaffName();
 });
-// =========
-// avoid typing of special characters and
-// multiple of spacing ENDS here
-//================
-
-// ==========================
-// Role validation Starts Here
-//optiional to if gusto mo validation ng role selectiion
-//============================
-const validateRole = () => {
-  if (!roleInput.value) {
-    setFeedback(roleInput, roleFeedback, "Please select a role.", false);
-    return false;
-  } else {
-    setFeedback(roleInput, roleFeedback, "Role Selected!", true);
-    return true;
-  }
-};
-
-// ==========================
-// Role validation ENDS Here
-//============================
-
-// ================
-// Realtime check Starts Here
-//===========================
-staffNameInput.addEventListener("input", validateStaffName);
-roleInput.addEventListener("change", validateRole);
-
-// ================
-// Realtime check ENDS Here
-//===========================
 
 // ======================
-// Submit  with spinner STARTS here //
-//========================
+// Submit with spinner
+// ======================
 form.addEventListener("submit", (e) => {
-  if (!validateStaffName() || !validateRole()) {
-    e.preventDefault(); //binablock nya once na di nasunod yung requirements na need
-  } else {
-    e.preventDefault();
-    spinner.classList.remove("hidden");
-    const submitBtn = e.target.querySelector("button");
-    submitBtn.disabled = true;
+  e.preventDefault();
 
-    // set ng delay to para sa spinner
-    setTimeout(() => {
-      form.submit();
-    }, 2000);
+  if (!validateStaffName()) {
+    return; // mag stop if invalid
   }
+
+  // ================
+  // show spinner tas disable button
+  //=================
+  spinner.classList.remove("hidden");
+  submitBtn.disabled = true;
+
+  // ==================
+  // showing loading spinner
+  //========================
+  setTimeout(() => {
+    spinner.classList.add("hidden");
+    submitBtn.disabled = false;
+  }, 2000);
 });
-// ======================
-// Submit  with spinner ENDS here
-//========================
 
 // ========================================================
 //  REGISTER STAFF ENDS HERE
 // ========================================================
+
+//============
+//Modify Position STARTS HERE
+//==============================
+
+const modifySpinner = document.getElementById("modifyLoadingSpinner");
+const modifySubmit = document.getElementById("modifySubmitBtn");
+
+modifySubmit.addEventListener("submit", (e) => {
+  modifySpinner.classList.remove("hidden");
+  modifySubmit.disabled = true;
+
+  setTimeout(() => {
+    modifySpinner.classList.add("hidden");
+    modifySubmit.disabled = false;
+  }, 2000);
+});
+
+//============
+//Modify Position ENDS HERE
+//==============================
 
 // ========================================================
 //  Staff management ENDS HERE
